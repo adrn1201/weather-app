@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-12-13T08:44:30Z"
+  name: weather-app-service
+  namespace: default
+  resourceVersion: "4345"
+  uid: 1ee52bf8-4495-4f43-b166-c4ab5b2cd2fb
+spec:
+  clusterIP: 10.104.84.194
+  clusterIPs:
+  - 10.104.84.194
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30727
+    port: 80
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: weather-app
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
