@@ -1,4 +1,4 @@
-name: Re-build Docker Image
+name: Build Code
 on:
     workflow_dispatch:
     push:
@@ -6,16 +6,10 @@ on:
             - master
 jobs:
     clean:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Set-up Node
-              uses: actions/setup-node@v4
-            - name: Install Dependencies
-              run: npm ci
-            - name: Run Clean
-              run: npm run clean
+        uses: ./.github/workflows/npm-command.yml
+        with:
+            command-name: Clean
+            npm-command: npm run clean
     lint:
         needs: clean
         if: success()
