@@ -19,6 +19,6 @@ jobs:
               run: npm run lint
             - name: Generate Report
               id: report
-              if: failure() && steps.run-lint.outcome == 'failure'
+              if: success() && steps.run-lint.outcome == 'success'
               run: echo "test"
             
