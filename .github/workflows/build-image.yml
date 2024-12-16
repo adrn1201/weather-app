@@ -10,5 +10,15 @@ jobs:
         steps:
             - name: Get Code
               uses: actions/checkout@v4
-            - name: Test print
-              run: echo "hello"
+            - name: Set-up Node
+              run: actions/setup-node@v4
+            - name: Install Dependencies
+              run: npm ci
+            - name: Run Lint
+              id: run-lint
+              run: npm run lint
+            - name: Generate Report
+              id: report
+              if: failure() && steps.run-lint.outcome == 'failure'
+              run: echo "test"
+            
