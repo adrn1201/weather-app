@@ -6,15 +6,10 @@ on:
             - master
 jobs:
     clean:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v3
-            - name: Test
-              uses: ./.github/workflows/npm-command.yml
-              with:
-                command-name: Clean
-                npm-command: npm run clean
+        uses: adrn1201/weather-app/.github/workflows/npm-command.yml@master
+        with:
+            command-name: Clean
+            npm-command: npm run clean
     lint:
         needs: clean
         if: success()
