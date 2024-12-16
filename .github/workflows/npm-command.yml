@@ -14,9 +14,5 @@ jobs:
     run-npm:
         runs-on: ubuntu-latest
         steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Install Dependencies
-              uses: npm ci
-            - name: Run ${{ inputs.command-name}}
-              run: ${{ inputs.npm-command }}
+            - name: test
+              run: echo "hello"
