@@ -13,6 +13,7 @@ runs:
   using: 'composite'
   steps:
       - name: Install Dependencies
-        uses: npm ci
+        run: npm ci
+        shell: bash
       - name: Run ${{ inputs.command-name}}
         run: ${{ inputs.npm-command }}
