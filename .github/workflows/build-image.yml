@@ -6,10 +6,14 @@ on:
             - master
 jobs:
     clean:
-        uses: .github/workflows/npm-command.yml
-        with:
-            command-name: Clean
-            npm-command: npm run clean
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              name: Get Code
+            uses: ./.github/workflows/npm-command.yml
+            with:
+                command-name: Clean
+                npm-command: npm run clean
     lint:
         needs: clean
         if: success()
