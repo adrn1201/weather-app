@@ -1,0 +1,20 @@
+name: Install Dependencies
+description: 'Install Dependencies'
+inputs:
+  command-name:
+    required: true
+    description: Name of Command
+    type: string
+  npm-command:
+    description: run npm Command
+    required: true
+    type: string
+runs:
+  using: 'composite'
+  steps:
+      - name: Install Dependencies
+        uses: npm ci
+        shell: bash
+      - name: Run ${{ inputs.command-name}}
+        run: ${{ inputs.npm-command }}
+        shell: bash
