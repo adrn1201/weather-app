@@ -6,7 +6,7 @@ on:
             - master
 jobs:
     clean:
-        uses: ./.github/workflows/npm-command.yml
+        uses: ./.github/workflows/npm-command.yml@master
         with:
             command-name: Clean
             npm-command: npm run clean
