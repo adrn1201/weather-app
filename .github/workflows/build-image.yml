@@ -1,0 +1,14 @@
+name: Re-build Docker Image
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - master
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Code
+              uses: actions/checkout@v4
+            - name: Test print
+              run: echo "hello"
