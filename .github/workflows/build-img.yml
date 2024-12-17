@@ -1,10 +1,11 @@
-name: Build Code
+name: Build Image
 on:
   workflow_dispatch:
 jobs:
     run-npm:
         uses: ./.github/workflows/npm-steps.yml
     docker-build:
+        needs: run-npm
         if: success()
         runs-on: ubuntu-latest
         steps:
