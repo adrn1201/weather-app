@@ -48,5 +48,7 @@ jobs:
       if: success()
       runs-on: ubuntu-latest
       steps:
-        - name: Test Run
-          run: echo "hello"
+          - name: Get Code
+            uses: actions/checkout@v4
+          - name: Build Docker Image
+            run: docker build -t weather-app:latest .
