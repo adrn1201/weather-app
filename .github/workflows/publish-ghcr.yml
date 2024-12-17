@@ -23,17 +23,17 @@ jobs:
         run: docker build -t ghcr.io/adrn1201/weather-app:latest .
       - name: Push Docker Image
         run: docker push ghcr.io/adrn1201/weather-app:latest
-  generate-summary:
+  display:
     needs: publish-docker-img
     if: success()
     runs-on: ubuntu-latest
     steps:
-      - name: Display Summary
+      - name: Display Deployment Summary
         run: |
-          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Pushed by: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Docker Image**: ghcr.io/adrn1201/weather-app:latest" >> $GITHUB_STEP_SUMMARY
-          echo "- **Environment**: dev" >> $GITHUB_STEP_SUMMARY
-          echo "- **Status**: Successful" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }} 🌍" >> $GITHUB_STEP_SUMMARY
+          echo "- **Pushed by**: ${{ github.actor }} 👤" >> $GITHUB_STEP_SUMMARY
+          echo "- **Docker Image**: ghcr.io/adrn1201/weather-app:latest 🐳" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: dev ⚙️" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ Successful" >> $GITHUB_STEP_SUMMARY
 
