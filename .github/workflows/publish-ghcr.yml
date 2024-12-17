@@ -16,6 +16,7 @@ jobs:
             - name: Login to Docker Registry
               run: docker login --username adrn1201 --password ${{ env.GH_ACCESS_TOKEN }} ghcr.io
     build-and-publish:
+        needs: login-registry
         uses: ./.github/workflows/build-img.yml
     
                 
