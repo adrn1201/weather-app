@@ -1,0 +1,21 @@
+name: Publish Docker Image
+on:
+    push:
+        branches:
+            - master
+    workflow_dispatch:
+jobs:
+    login-registry:
+        environment: dev
+        env: 
+            GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get Code
+              uses: actions/checkout@v4
+            - name: Login to Docker Registry
+              run: docker login --username adrn1201 --password ${{ env.GH_ACCESS_TOKEN }} ghcr.io
+    build-and-publish:
+        uses: ./.github/workflows/build-img.yml
+    
+                
