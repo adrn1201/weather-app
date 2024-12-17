@@ -1,4 +1,4 @@
-name: npm steps
+name: Execute NPM Scripts
 on:
   workflow_call:
   workflow_dispatch:

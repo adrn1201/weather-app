@@ -5,11 +5,10 @@ on:
       - master
   workflow_dispatch:
 jobs:
-  run-npm:
-    uses: ./.github/workflows/run-npm.yml
-
+  execute-npm-scripts:
+    uses: ./.github/workflows/execute-npm-scripts.yml
   publish-docker-img:
-    needs: run-npm
+    needs: execute-npm-scripts
     if: success()
     environment: dev
     env: 
@@ -18,12 +17,17 @@ jobs:
     steps:
       - name: Get Code
         uses: actions/checkout@v4
-
       - name: Login to Docker Registry
         run: echo "${{ env.GH_ACCESS_TOKEN }}" | docker login ghcr.io -u adrn1201 --password-stdin
-
       - name: Build Docker Image
         run: docker build -t ghcr.io/adrn1201/weather-app:latest .
-
       - name: Push Docker Image
         run: docker push ghcr.io/adrn1201/weather-app:latest
+  generate-summary:
+    needs: publish-docker-img
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Summary
+        run: echo "${{ toJson(github) }}"
+
