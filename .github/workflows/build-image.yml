@@ -1,41 +1,52 @@
 name: Build Code
 on:
-    workflow_dispatch:
-    push:
-        branches:
-            - master
+  workflow_call:
+  workflow_dispatch:
+  push:
+      branches:
+          - master
 jobs:
     clean:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Run Clean
-              uses: ./.github/actions/npm-run
-              with:
-                command-name: Clean
-                npm-command: npm run clean
+      runs-on: ubuntu-latest
+      steps:
+          - name: Get Code
+            uses: actions/checkout@v4
+          - name: Run Clean
+            uses: ./.github/actions/npm-run
+            with:
+              command-name: Clean
+              npm-command: npm run clean
     lint:
-        needs: clean
-        if: success()
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Run Lint
-              uses: ./.github/actions/npm-run
-              with:
-                command-name: Lint
-                npm-command: npm run lint
+      needs: clean
+      if: success()
+      runs-on: ubuntu-latest
+      steps:
+          - name: Get Code
+            uses: actions/checkout@v4
+          - name: Run Lint
+            uses: ./.github/actions/npm-run
+            with:
+              command-name: Lint
+              npm-command: npm run lint
     build:
-        needs: lint
-        if: success()
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Run Clean
-              uses: ./.github/actions/npm-run
-              with:
-                command-name: Build
-                npm-command: npm run build
+      needs: lint
+      if: success()
+      runs-on: ubuntu-latest
+      steps:
+          - name: Get Code
+            uses: actions/checkout@v4
+          - name: Run Clean
+            uses: ./.github/actions/npm-run
+            with:
+              command-name: Build
+              npm-command: npm run build
+    docker-build:
+      needs: 
+        - 'clean'
+        - 'lint'
+        - 'build'
+      if: success()
+      runs-on: ubuntu-latest
+      steps:
+        - name: Test Run
+          run: echo "hello"
