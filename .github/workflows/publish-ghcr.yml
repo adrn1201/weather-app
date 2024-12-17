@@ -29,5 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Display Summary
-        run: echo "${{ toJson(github) }}"
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Pushed by: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Docker Image**: ghcr.io/adrn1201/weather-app:latest" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: dev" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: Successful" >> $GITHUB_STEP_SUMMARY
 
