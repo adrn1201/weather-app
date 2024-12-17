@@ -1,22 +1,24 @@
 name: Publish Docker Image
 on:
-    push:
-        branches:
-            - master
-    workflow_dispatch:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 jobs:
-    publish:
-        environment: dev
-        env: 
-            GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Code
-              uses: actions/checkout@v4
-            - name: Login to Docker Registry
-              run: |
-                docker login --username adrn1201 --password ${{ env.GH_ACCESS_TOKEN }} ghcr.io
-                docker build -t weather-app:latest .
-                docker push ghcr.io/adrn1201/weather-app:latest
-    
-                
+  publish:
+    environment: dev
+    env: 
+      GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Registry
+        run: |
+          echo "${{ env.GH_ACCESS_TOKEN }}" | docker login ghcr.io -u adrn1201 --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ghcr.io/adrn1201/weather-app:latest .
+          docker push ghcr.io/adrn1201/weather-app:latest
