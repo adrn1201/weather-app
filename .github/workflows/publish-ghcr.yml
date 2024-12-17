@@ -22,8 +22,8 @@ jobs:
       - name: Login to Docker Registry
         run: echo "${{ env.GH_ACCESS_TOKEN }}" | docker login ghcr.io -u adrn1201 --password-stdin
 
-      - name: Build and Push Docker Image
+      - name: Build Docker Image
         run: docker build -t ghcr.io/adrn1201/weather-app:latest .
-        
+
       - name: Push Docker Image
         run: docker push ghcr.io/adrn1201/weather-app:latest
