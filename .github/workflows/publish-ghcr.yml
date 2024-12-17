@@ -23,7 +23,7 @@ jobs:
         run: docker build -t ghcr.io/adrn1201/weather-app:latest .
       - name: Push Docker Image
         run: docker push ghcr.io/adrn1201/weather-app:latest
-  display:
+  report:
     needs: publish-docker-img
     if: success()
     runs-on: ubuntu-latest
