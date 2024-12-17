@@ -40,15 +40,3 @@ jobs:
             with:
               command-name: Build
               npm-command: npm run build
-    docker-build:
-      needs: 
-        - 'clean'
-        - 'lint'
-        - 'build'
-      if: success()
-      runs-on: ubuntu-latest
-      steps:
-          - name: Get Code
-            uses: actions/checkout@v4
-          - name: Build Docker Image
-            run: docker build -t weather-app:latest .
