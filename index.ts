@@ -1,11 +1,13 @@
 import express from "express";
-import axios from "axios";
 import ejsMate from "ejs-mate";
 import path from "path";
-import { Weather, WeatherData } from "./utils";
+import dotenv from "dotenv";
+import Weather from "@weatheradrn/weather-npm-package"
+import { WeatherData } from "./utils";
 
 const app = express();
 
+dotenv.config();
 app.engine("ejs", ejsMate);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -17,11 +19,10 @@ app.get("/", async (req, res) => {
   try {
     let weatherData: WeatherData | null;
     if (req.query.location) {
-      const response = await axios.get<Weather>(
-        `https://api.weatherstack.com/current?access_key=0374cf0a1ebf1ac68f98a8328fee1313&query=${req.query.location}`
-      );
-      const { location } = response.data;
-      const { current } = response.data;
+      const weatherObj = new Weather(process.env.WEATHER_ACCESS_KEY, req.query.location)
+      const response = await weatherObj.getWeather()
+      const { location } = response;
+      const { current } = response;
       weatherData = {
         name: location.name,
         country: location.country,

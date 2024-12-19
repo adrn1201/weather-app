@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsx index.ts",
-    "clean": "find . -type f -name '*.js' -not -path './node_modules/*' -not -path './public/*' -delete",    
+    "clean": "find . -type f -name '*.js' -not -path './node_modules/*' -not -path './public/*' -delete",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,7 +15,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@weatheradrn/weather-npm-package": "^1.0.1",
     "axios": "^1.7.7",
+    "dotenv": "^16.4.7",
     "ejs-mate": "^4.0.0",
     "express": "^4.21.1"
   },
